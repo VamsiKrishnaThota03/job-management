@@ -5,12 +5,13 @@ import { JobForm } from '@/components/JobForm';
 import { Job, JobFormData } from '@/types/job';
 import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 
-export default function EditJob({ params }: { params: { id: string } }) {
+export default function EditJob({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState(true);
+  const resolvedParams = use(params);
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -18,7 +19,7 @@ export default function EditJob({ params }: { params: { id: string } }) {
         // TODO: Implement API call to fetch job
         // Mock data for now
         setJob({
-          id: parseInt(params.id),
+          id: parseInt(resolvedParams.id),
           title: 'Senior Software Engineer',
           companyName: 'Tech Corp',
           location: 'San Francisco, CA',
@@ -43,7 +44,7 @@ export default function EditJob({ params }: { params: { id: string } }) {
     };
 
     fetchJob();
-  }, [params.id]);
+  }, [resolvedParams.id]);
 
   const handleSubmit = async (data: JobFormData) => {
     try {

@@ -1,13 +1,19 @@
 export type JobType = 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
+export type WorkMode = 'Onsite' | 'Remote' | 'Hybrid';
 
 export interface Job {
   id: number;
-  title: string;
   companyName: string;
-  location: string;
-  jobType: JobType;
+  companyLogo: string;
+  title: string;
+  experience: string;
+  workMode: WorkMode;
+  salary: string;
   salaryRange: string;
   description: string;
+  postedTime: string;
+  location: string;
+  jobType: JobType;
   requirements: string;
   responsibilities: string;
   applicationDeadline: Date;
@@ -15,4 +21,18 @@ export interface Job {
   updatedAt: Date;
 }
 
-export interface JobFormData extends Omit<Job, 'id' | 'createdAt' | 'updatedAt'> {} 
+export interface JobFormData {
+  title: string;
+  companyName: string;
+  companyLogo?: string;
+  experience?: string;
+  workMode?: WorkMode;
+  salary?: string;
+  salaryRange: string;
+  description: string;
+  location: string;
+  jobType: JobType;
+  requirements: string;
+  responsibilities: string;
+  applicationDeadline: Date;
+} 
