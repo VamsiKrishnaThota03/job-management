@@ -167,7 +167,7 @@ function HomeContent() {
         onJobTypeChange={handleJobTypeChange}
         onSalaryChange={handleSalaryChange}
       />
-      
+
       <div className="w-full flex justify-center mt-8">
         <div style={{
           width: '1264px',
@@ -186,7 +186,7 @@ function HomeContent() {
         </div>
       </div>
       {showCreateModal && <CreateJobModal onSuccess={fetchJobs} />}
-    </main>
+      </main>
   );
 }
 

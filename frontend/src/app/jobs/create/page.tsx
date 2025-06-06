@@ -68,9 +68,15 @@ function CreateJobModal({ onSuccess }: CreateJobModalProps) {
       router.push('/');
     } catch (error) {
       console.error('Error creating job:', error);
+      
+      // Show a more detailed error message
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'An unexpected error occurred while creating the job posting';
+      
       notifications.show({
         title: 'Error',
-        message: 'Failed to create job posting',
+        message: errorMessage,
         color: 'red',
       });
     }

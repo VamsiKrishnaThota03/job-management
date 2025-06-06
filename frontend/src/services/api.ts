@@ -16,20 +16,32 @@ export const jobsApi = {
   // Create a new job
   createJob: async (jobData: JobFormData): Promise<Job> => {
     console.log('Creating job with data:', jobData);
-    const response = await fetch(`${API_URL}/jobs`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(jobData),
-    });
+    console.log('Using API URL:', API_URL);
     
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Server response:', error);
-      throw new Error(`Failed to create job: ${error}`);
+    try {
+      const response = await fetch(`${API_URL}/jobs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jobData),
+      });
+      
+      const responseText = await response.text();
+      console.log('Raw server response:', responseText);
+      
+      if (!response.ok) {
+        console.error('Server error status:', response.status);
+        console.error('Server error statusText:', response.statusText);
+        throw new Error(`Failed to create job: ${responseText}`);
+      }
+      
+      // Only try to parse as JSON if we have a response
+      return responseText ? JSON.parse(responseText) : null;
+    } catch (error) {
+      console.error('Network or parsing error:', error);
+      throw error;
     }
-    return response.json();
   },
 
   // Update an existing job
