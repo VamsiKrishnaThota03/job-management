@@ -43,10 +43,10 @@ export function Header() {
             </div>
             <Group gap={48}>
               <Link href="/" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Home</Link>
-              <Link href="/jobs" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Find Jobs</Link>
-              <Link href="/talents" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Find Talents</Link>
-              <Link href="/about" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>About us</Link>
-              <Link href="/testimonials" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Testimonials</Link>
+              <Link href="/" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Find Jobs</Link>
+              <Link href="/" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Find Talents</Link>
+              <Link href="/" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>About us</Link>
+              <Link href="/" style={{ color: '#111827', textDecoration: 'none', fontSize: '16px' }}>Testimonials</Link>
             </Group>
           </Group>
           <Link href="/?create=true" style={{ textDecoration: 'none' }}>
