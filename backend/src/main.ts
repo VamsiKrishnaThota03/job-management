@@ -6,10 +6,20 @@ async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule);
     
+    // Get the frontend URL from environment variable
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    
+    // Create array of allowed origins with and without trailing slash
+    const allowedOrigins = [
+      frontendUrl,
+      frontendUrl.endsWith('/') ? frontendUrl.slice(0, -1) : `${frontendUrl}/`
+    ];
+    
     app.enableCors({
-      origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+      origin: allowedOrigins,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
       allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
     });
 
     app.useGlobalPipes(
