@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Container } from '@mantine/core';
 import { Header } from '@/components/Header';
 import { SearchFilters } from '@/components/SearchFilters';
@@ -55,7 +55,7 @@ const mockJobs: Job[] = Array(8).fill(null).map((_, index) => ({
   updatedAt: new Date(),
 }));
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams();
   const showCreateModal = searchParams.get('create') === 'true';
   const [realJobs, setRealJobs] = useState<Job[]>([]); // State for real jobs from API
@@ -187,5 +187,13 @@ export default function Home() {
       </div>
       {showCreateModal && <CreateJobModal onSuccess={fetchJobs} />}
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }

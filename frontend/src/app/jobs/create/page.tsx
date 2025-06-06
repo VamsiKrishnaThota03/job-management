@@ -22,7 +22,7 @@ interface CreateJobModalProps {
   onSuccess?: () => void;
 }
 
-export default function CreateJobModal({ onSuccess }: CreateJobModalProps) {
+function CreateJobModal({ onSuccess }: CreateJobModalProps) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     title: '',
@@ -389,4 +389,6 @@ export default function CreateJobModal({ onSuccess }: CreateJobModalProps) {
       </Paper>
     </Modal>
   );
-} 
+}
+
+export default CreateJobModal; 
