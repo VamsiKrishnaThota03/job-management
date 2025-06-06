@@ -10,6 +10,10 @@ interface JobCardProps {
 }
 
 export function JobCard({ job, onApply }: JobCardProps) {
+  // Split description into bullet points (max 2)
+  const descriptionPoints = job.description?.split('.').filter(point => point.trim()) || [];
+  const displayPoints = descriptionPoints.slice(0, 2).map(point => point.trim() + '.');
+
   return (
     <Paper 
       shadow="sm" 
@@ -51,7 +55,7 @@ export function JobCard({ job, onApply }: JobCardProps) {
 
           {/* Posted Time Badge */}
           <Badge style={{ backgroundColor: '#B0D9FF' }} variant="light" size="sm">
-            {job.postedTime}
+            {job.postedTime || 'New'}
           </Badge>
         </Group>
 
@@ -64,32 +68,37 @@ export function JobCard({ job, onApply }: JobCardProps) {
         <Group gap="sm">
           <Group gap="xs">
             <IconBriefcase size={14} color="#4B5563" />
-            <Text size="xs" c="#4B5563">{job.experience}</Text>
+            <Text size="xs" c="#4B5563">{job.experience || 'Not specified'}</Text>
           </Group>
           <Group gap="xs">
             <IconMapPin size={14} color="#4B5563" />
-            <Text size="xs" c="#4B5563">{job.workMode}</Text>
+            <Text size="xs" c="#4B5563">{job.workMode || 'Not specified'}</Text>
           </Group>
           <Group gap="xs">
             <IconCurrencyRupee size={14} color="#4B5563" />
-            <Text size="xs" c="#4B5563">{job.salary}</Text>
+            <Text size="xs" c="#4B5563">{job.salaryRange || job.salary || 'Not specified'}</Text>
           </Group>
         </Group>
 
         {/* Description Points */}
         <Stack gap={8} style={{ flex: 1 }}>
-          <Group gap="xs" align="flex-start">
-            <Text size="xs" c="#4B5563">•</Text>
-            <Text size="xs" c="#4B5563" style={{ flex: 1 }}>
-              A user-friendly interface lets you browse stunning photos and videos.
-            </Text>
-          </Group>
-          <Group gap="xs" align="flex-start">
-            <Text size="xs" c="#4B5563">•</Text>
-            <Text size="xs" c="#4B5563" style={{ flex: 1 }}>
-              Filter destinations based on interests and travel style, and create personalized.
-            </Text>
-          </Group>
+          {displayPoints.length > 0 ? (
+            displayPoints.map((point, index) => (
+              <Group key={index} gap="xs" align="flex-start">
+                <Text size="xs" c="#4B5563">•</Text>
+                <Text size="xs" c="#4B5563" style={{ flex: 1 }}>
+                  {point}
+                </Text>
+              </Group>
+            ))
+          ) : (
+            <Group gap="xs" align="flex-start">
+              <Text size="xs" c="#4B5563">•</Text>
+              <Text size="xs" c="#4B5563" style={{ flex: 1 }}>
+                No description available
+              </Text>
+            </Group>
+          )}
         </Stack>
 
         {/* Apply Button */}

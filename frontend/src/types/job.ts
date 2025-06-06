@@ -14,8 +14,6 @@ export interface Job {
   postedTime: string;
   location: string;
   jobType: JobType;
-  requirements: string;
-  responsibilities: string;
   applicationDeadline: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -32,7 +30,5 @@ export interface JobFormData {
   description: string;
   location: string;
   jobType: JobType;
-  requirements: string;
-  responsibilities: string;
   applicationDeadline: Date;
 } 

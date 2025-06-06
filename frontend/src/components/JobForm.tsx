@@ -36,8 +36,6 @@ export function JobForm({ initialData, onSubmit }: JobFormProps) {
       description: initialData?.description || '',
       location: initialData?.location || '',
       jobType: initialData?.jobType || 'Full-time',
-      requirements: initialData?.requirements || '',
-      responsibilities: initialData?.responsibilities || '',
       applicationDeadline: initialData?.applicationDeadline || new Date(),
     },
   });
@@ -121,24 +119,6 @@ export function JobForm({ initialData, onSubmit }: JobFormProps) {
             minRows={8}
             {...register('description', { required: 'Job description is required' })}
             error={errors.description?.message}
-          />
-
-          <Textarea
-            label="Requirements"
-            placeholder="Enter job requirements"
-            required
-            minRows={4}
-            {...register('requirements', { required: 'Requirements are required' })}
-            error={errors.requirements?.message}
-          />
-
-          <Textarea
-            label="Responsibilities"
-            placeholder="Enter job responsibilities"
-            required
-            minRows={4}
-            {...register('responsibilities', { required: 'Responsibilities are required' })}
-            error={errors.responsibilities?.message}
           />
 
           <DateInput

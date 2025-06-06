@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export type JobType = 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
+export type WorkMode = 'Onsite' | 'Remote' | 'Hybrid';
 
 @Entity()
 export class Job {
@@ -23,17 +24,24 @@ export class Job {
   })
   jobType: JobType;
 
+  @Column({
+    type: 'enum',
+    enum: ['Onsite', 'Remote', 'Hybrid'],
+    default: 'Onsite',
+  })
+  workMode: WorkMode;
+
+  @Column({ nullable: true })
+  experience: string;
+
+  @Column({ nullable: true })
+  salary: string;
+
   @Column()
   salaryRange: string;
 
   @Column('text')
   description: string;
-
-  @Column('text')
-  requirements: string;
-
-  @Column('text')
-  responsibilities: string;
 
   @Column({ type: 'timestamp' })
   applicationDeadline: Date;

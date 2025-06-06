@@ -1,5 +1,5 @@
-import { IsString, IsEnum, IsNotEmpty, IsDateString } from 'class-validator';
-import { JobType } from '../entities/job.entity';
+import { IsString, IsEnum, IsNotEmpty, IsDateString, IsOptional } from 'class-validator';
+import { JobType, WorkMode } from '../entities/job.entity';
 
 export class CreateJobDto {
   @IsString()
@@ -17,6 +17,17 @@ export class CreateJobDto {
   @IsEnum(['Full-time', 'Part-time', 'Contract', 'Internship'])
   jobType: JobType;
 
+  @IsEnum(['Onsite', 'Remote', 'Hybrid'])
+  workMode: WorkMode;
+
+  @IsString()
+  @IsOptional()
+  experience?: string;
+
+  @IsString()
+  @IsOptional()
+  salary?: string;
+
   @IsString()
   @IsNotEmpty()
   salaryRange: string;
@@ -24,14 +35,6 @@ export class CreateJobDto {
   @IsString()
   @IsNotEmpty()
   description: string;
-
-  @IsString()
-  @IsNotEmpty()
-  requirements: string;
-
-  @IsString()
-  @IsNotEmpty()
-  responsibilities: string;
 
   @IsDateString()
   applicationDeadline: Date;

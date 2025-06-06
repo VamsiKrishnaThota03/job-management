@@ -2,7 +2,7 @@
 
 import { TextInput, Select, RangeSlider, Paper, Group, Text } from '@mantine/core';
 import { IconSearch, IconMapPin, IconBriefcase, IconCurrencyDollar, IconChevronDown } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface SearchFiltersProps {
   onSearch: (query: string) => void;
@@ -17,10 +17,11 @@ export function SearchFilters({
   onJobTypeChange,
   onSalaryChange,
 }: SearchFiltersProps) {
-  const [sliderValue, setSliderValue] = useState<[number, number]>([50, 65]);
+  const [sliderValue, setSliderValue] = useState<[number, number]>([0, 80]);
 
   const handleSliderChange = (value: [number, number]) => {
     setSliderValue(value);
+    onSalaryChange(value);
   };
 
   const selectStyles = {
@@ -182,17 +183,21 @@ export function SearchFilters({
                 marginBottom: '8px'
               }}>
                 <Text size="sm" fw={500} c="#111827">Salary Per Month</Text>
-                <Text size="sm" fw={500} c="#111827">₹50k - ₹80k</Text>
+                <Text size="sm" fw={500} c="#111827">₹{sliderValue[0]}k - ₹{sliderValue[1]}k</Text>
               </div>
               <RangeSlider
-                min={50}
+                min={0}
                 max={80}
-                step={5}
-                minRange={10}
+                step={10}
+                minRange={20}
                 value={sliderValue}
-                marks={[]}
+                marks={[
+                  { value: 0, label: '0k' },
+                  { value: 80, label: '80k' }
+                  // { value: 200, label: '200k' }
+                ]}
                 labelAlwaysOn={false}
-                showLabelOnHover={false}
+                showLabelOnHover={true}
                 onChange={handleSliderChange}
                 styles={{
                   root: { marginTop: '4px' },
@@ -209,6 +214,10 @@ export function SearchFilters({
                     backgroundColor: 'white',
                     width: '12px',
                     height: '12px'
+                  },
+                  label: {
+                    backgroundColor: 'black',
+                    color: 'white'
                   }
                 }}
               />
